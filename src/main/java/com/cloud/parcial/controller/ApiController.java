@@ -1,31 +1,33 @@
 package com.cloud.parcial.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.cloud.parcial.dto.Backlog;
+import com.cloud.parcial.dto.Project;
+import com.cloud.parcial.dto.ProjectTask;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
 public class ApiController {
 
     @PostMapping("/backlog")
-    public void addNewBacklog(){
+    public void addNewBacklog(@RequestBody @Valid Backlog backlog){
 
     }
 
     @PostMapping("/project")
-    public void addNewProject(){
-
-    }
-
-    @PostMapping("/task")
-    public void addNewtask(){
+    public void addNewProject(@RequestBody @Valid Project project){
 
     }
 
     @GetMapping("/project")
     public void viewAllProjects(){
+
+    }
+
+    @PostMapping("/task")
+    public void addNewtask(@RequestBody @Valid ProjectTask projectTask){
 
     }
 

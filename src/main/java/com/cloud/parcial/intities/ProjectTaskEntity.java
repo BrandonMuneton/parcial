@@ -17,6 +17,7 @@ public class ProjectTaskEntity {
     private String acceptanceCriteria;
     private String status;
     private int priority;
+    private double horus; //TODO: Generar nuevo contructor
     private Date startDate;
     private Date endDate;
     private String projectIdentifier;
