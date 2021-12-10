@@ -1,11 +1,12 @@
 package com.cloud.parcial.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class Backlog {
 
-    @NotEmpty
+    @NotBlank
     private String projectIdentifier;
     private String project;
     private String projectTask;
