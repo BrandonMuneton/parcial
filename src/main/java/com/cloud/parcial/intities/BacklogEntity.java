@@ -1,23 +1,26 @@
 package com.cloud.parcial.intities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "")//TODO: nombre de la tabla en la BD
 public class BacklogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String projectIdentifier;
-    private String project;
-    //TODO: JOIN
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private ProjectEntity project;
+
+    @OneToMany
+    @JoinColumn(name = "id")
     private List<ProjectTaskEntity> projectTaskEntityList;
 
-    public BacklogEntity(Long id, String projectIdentifier, String project,
+    public BacklogEntity(Long id, String projectIdentifier, ProjectEntity project,
                          List<ProjectTaskEntity> projectTaskEntityList) {
         this.id = id;
         this.projectIdentifier = projectIdentifier;
@@ -45,11 +48,11 @@ public class BacklogEntity {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public String getProject() {
+    public ProjectEntity getProject() {
         return project;
     }
 
-    public void setProject(String project) {
+    public void setProject(ProjectEntity project) {
         this.project = project;
     }
 

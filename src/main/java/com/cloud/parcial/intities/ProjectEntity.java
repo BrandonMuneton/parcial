@@ -1,12 +1,10 @@
 package com.cloud.parcial.intities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "")//TODO: nombre de la tabla en la BD
 public class ProjectEntity {
 
     @Id
@@ -17,7 +15,9 @@ public class ProjectEntity {
     private String description;
     private Date startDate;
     private Date endDate;
-    //TODO: JOIN
+
+    @OneToOne
+    @JoinColumn(name = "id")
     private BacklogEntity backlogEntity;
 
     public ProjectEntity(Long id, String projectName, String projectIdentifier, String description,

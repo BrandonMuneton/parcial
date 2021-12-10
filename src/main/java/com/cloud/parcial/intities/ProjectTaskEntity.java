@@ -1,12 +1,10 @@
 package com.cloud.parcial.intities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "")//TODO: nombre de la tabla en la BD
 public class ProjectTaskEntity {
 
     @Id
@@ -17,22 +15,25 @@ public class ProjectTaskEntity {
     private String acceptanceCriteria;
     private String status;
     private int priority;
-    private double horus; //TODO: Generar nuevo contructor
+    private double horus;
     private Date startDate;
     private Date endDate;
     private String projectIdentifier;
-    //TODO: JOIN
+
+    @ManyToOne
+    @JoinColumn(name = "id")
     private BacklogEntity backlogEntity;
 
-    public ProjectTaskEntity(Long id, String name, String summary, String acceptanceCriteria, String status,
-                             int priority, Date startDate, Date endDate, String projectIdentifier,
-                             BacklogEntity backlogEntity) {
+    public ProjectTaskEntity(Long id, String name, String summary, String acceptanceCriteria,
+                             String status, int priority, double horus, Date startDate, Date endDate,
+                             String projectIdentifier, BacklogEntity backlogEntity) {
         this.id = id;
         this.name = name;
         this.summary = summary;
         this.acceptanceCriteria = acceptanceCriteria;
         this.status = status;
         this.priority = priority;
+        this.horus = horus;
         this.startDate = startDate;
         this.endDate = endDate;
         this.projectIdentifier = projectIdentifier;
@@ -121,5 +122,13 @@ public class ProjectTaskEntity {
 
     public void setBacklogEntity(BacklogEntity backlogEntity) {
         this.backlogEntity = backlogEntity;
+    }
+
+    public double getHorus() {
+        return horus;
+    }
+
+    public void setHorus(double horus) {
+        this.horus = horus;
     }
 }
