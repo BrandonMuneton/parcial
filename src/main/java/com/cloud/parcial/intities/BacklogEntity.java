@@ -9,20 +9,20 @@ public class BacklogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idBacklog;
     private String projectIdentifier;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "idProject")
     private ProjectEntity project;
 
     @OneToMany
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "idProjectTask")
     private List<ProjectTaskEntity> projectTaskEntityList;
 
-    public BacklogEntity(Long id, String projectIdentifier, ProjectEntity project,
+    public BacklogEntity(Long idBacklog, String projectIdentifier, ProjectEntity project,
                          List<ProjectTaskEntity> projectTaskEntityList) {
-        this.id = id;
+        this.idBacklog = idBacklog;
         this.projectIdentifier = projectIdentifier;
         this.project = project;
         this.projectTaskEntityList = projectTaskEntityList;
@@ -33,11 +33,11 @@ public class BacklogEntity {
     }
 
     public Long getId() {
-        return id;
+        return idBacklog;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idBacklog = idBacklog;
     }
 
     public String getProjectIdentifier() {

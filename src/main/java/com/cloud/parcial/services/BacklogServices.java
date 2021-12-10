@@ -5,6 +5,7 @@ import com.cloud.parcial.intities.BacklogEntity;
 import com.cloud.parcial.intities.ProjectTaskEntity;
 import com.cloud.parcial.repositories.BacklogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,9 @@ public class BacklogServices {
     private BacklogRepository backlogRepository;
 
     public ResponseEntity<?> addBacklog(Backlog backlog){
-        ResponseEntity<?> result = null;
+        ResponseEntity<?> result;
 
+        result = new ResponseEntity<>("Creacion exitosa", HttpStatus.CREATED);
         //backlogRepository.save();
 
         return result;

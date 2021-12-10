@@ -9,7 +9,7 @@ public class ProjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idProject;
     private String projectName;
     private String projectIdentifier;
     private String description;
@@ -17,12 +17,12 @@ public class ProjectEntity {
     private Date endDate;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "idBacklog")
     private BacklogEntity backlogEntity;
 
-    public ProjectEntity(Long id, String projectName, String projectIdentifier, String description,
+    public ProjectEntity(Long idProject, String projectName, String projectIdentifier, String description,
                          Date startDate, Date endDate, BacklogEntity backlogEntity) {
-        this.id = id;
+        this.idProject = idProject;
         this.projectName = projectName;
         this.projectIdentifier = projectIdentifier;
         this.description = description;
@@ -37,11 +37,11 @@ public class ProjectEntity {
     }
 
     public Long getId() {
-        return id;
+        return idProject;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idProject = idProject;
     }
 
     public String getProjectName() {

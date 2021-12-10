@@ -7,14 +7,14 @@ public class Backlog {
 
     @NotEmpty
     private String projectIdentifier;
-    private Project project;
-    private List<ProjectTask> projectTask;
+    private String project;
+    private String projectTask;
 
     public Backlog() {
         super();
     }
 
-    public Backlog( String projectIdentifier, Project project, List<ProjectTask> projectTask) {
+    public Backlog(String projectIdentifier, String project, String projectTask) {
         this.projectIdentifier = projectIdentifier;
         this.project = project;
         this.projectTask = projectTask;
@@ -28,19 +28,19 @@ public class Backlog {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public Project getProject() {
+    public String getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(String project) {
         this.project = project;
     }
 
-    public List<ProjectTask> getProjectTask() {
+    public String getProjectTask() {
         return projectTask;
     }
 
-    public void setProjectTask(List<ProjectTask> projectTask) {
+    public void setProjectTask(String projectTask) {
         this.projectTask = projectTask;
     }
 }

@@ -4,7 +4,8 @@ import com.cloud.parcial.dto.Backlog;
 import com.cloud.parcial.dto.Project;
 import com.cloud.parcial.dto.ProjectTask;
 import com.cloud.parcial.services.BacklogServices;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.cloud.parcial.services.ProjectServices;
+import com.cloud.parcial.services.ProjectTaskServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,16 @@ public class ApiController {
 
     @Autowired
     private final BacklogServices backlogServices;
+    @Autowired
+    private final ProjectServices projectServices;
+    @Autowired
+    private final ProjectTaskServices projectTaskServices;
 
-    public ApiController(BacklogServices backlogServices) {
+    public ApiController(BacklogServices backlogServices, ProjectServices projectServices,
+                         ProjectTaskServices projectTaskServices) {
         this.backlogServices = backlogServices;
+        this.projectServices = projectServices;
+        this.projectTaskServices = projectTaskServices;
     }
 
     @PostMapping("/backlog")
@@ -32,7 +40,7 @@ public class ApiController {
         ResponseEntity<?> result;
 
         try {
-            result = new ResponseEntity<>(backlogServices.addBacklog(backlog), HttpStatus.OK);
+            result = backlogServices.addBacklog(backlog);
         }
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
@@ -43,38 +51,108 @@ public class ApiController {
     }
 
     @PostMapping("/project")
-    public void addNewProject(@RequestBody @Valid Project project){
+    public ResponseEntity<?>  addNewProject(@RequestBody @Valid Project project){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectServices.addProject(project);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @GetMapping("/project")
-    public void viewAllProjects(){
+    public ResponseEntity<?> viewAllProjects(){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectServices.getProject();
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @PostMapping("/task")
-    public void addNewtask(@RequestBody @Valid ProjectTask projectTask){
+    public ResponseEntity<?> addNewTask(@RequestBody @Valid ProjectTask projectTask){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectTaskServices.addTask(projectTask);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @GetMapping("/task/project/{projectIdentifier}")
-    public void viewAllTask(){
+    public ResponseEntity<?> viewAllTask(@PathVariable String projectIdentifier){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectTaskServices.getTaskForProject(projectIdentifier);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @GetMapping("/task/hours/project/{projectIdentifier}")
-    public void allHoursProject(){
+    public ResponseEntity<?> allHoursProject(@PathVariable String projectIdentifier){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectTaskServices.getAllHour(projectIdentifier);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @GetMapping("/task/hours/project/{projectIdentifier}/{status}")
-    public void allHoursProjectStatus(){
+    public ResponseEntity<?> allHoursProjectStatus(@PathVariable String projectIdentifier, @PathVariable String status){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectTaskServices.getAllHourForStatus(projectIdentifier, status);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @DeleteMapping("/task/{idtask}/{projectIdentifier}")
-    public void deletedTask(){
+    public ResponseEntity<?> deletedTask(@PathVariable String idtask, @PathVariable String projectIdentifier){
+        ResponseEntity<?> result;
 
+        try {
+            result = projectTaskServices.deleteTask(projectIdentifier, idtask);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
 }

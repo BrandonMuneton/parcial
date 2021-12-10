@@ -9,7 +9,7 @@ public class ProjectTaskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idProjectTask;
     private String name;
     private String summary;
     private String acceptanceCriteria;
@@ -21,13 +21,13 @@ public class ProjectTaskEntity {
     private String projectIdentifier;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "idBacklog")
     private BacklogEntity backlogEntity;
 
-    public ProjectTaskEntity(Long id, String name, String summary, String acceptanceCriteria,
+    public ProjectTaskEntity(Long idProjectTask, String name, String summary, String acceptanceCriteria,
                              String status, int priority, double horus, Date startDate, Date endDate,
                              String projectIdentifier, BacklogEntity backlogEntity) {
-        this.id = id;
+        this.idProjectTask = idProjectTask;
         this.name = name;
         this.summary = summary;
         this.acceptanceCriteria = acceptanceCriteria;
@@ -45,11 +45,11 @@ public class ProjectTaskEntity {
     }
 
     public Long getId() {
-        return id;
+        return idProjectTask;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long idProjectTask) {
+        this.idProjectTask = idProjectTask;
     }
 
     public String getName() {
