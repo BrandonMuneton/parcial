@@ -1,4 +1,4 @@
-package dto;
+package com.cloud.parcial.dto;
 
 import java.util.List;
 

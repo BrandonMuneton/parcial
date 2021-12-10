@@ -1,4 +1,4 @@
-package controller;
+package com.cloud.parcial.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
