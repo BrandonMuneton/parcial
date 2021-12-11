@@ -1,16 +1,13 @@
 package com.cloud.parcial.dto;
 
-import com.cloud.parcial.intities.BacklogEntity;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 public class ProjectTask {
 
-    private Long id;
+    private Integer id;
 
     @NotBlank
     private String name;
@@ -34,18 +31,17 @@ public class ProjectTask {
 
     @Min(value = 1)
     @Max(value = 8)
-    private double horus;
+    private int horus;
     private Date startDate;
     private Date endDate;
     private String projectIdentifier;
-    //TODO: JOIN
-    private BacklogEntity backlogEntity;
+    private String backlog;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -81,11 +77,11 @@ public class ProjectTask {
         this.priority = priority;
     }
 
-    public double getHorus() {
+    public int getHorus() {
         return horus;
     }
 
-    public void setHorus(double horus) {
+    public void setHorus(int horus) {
         this.horus = horus;
     }
 
@@ -113,12 +109,12 @@ public class ProjectTask {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public BacklogEntity getBacklogEntity() {
-        return backlogEntity;
+    public String getBacklog() {
+        return backlog;
     }
 
-    public void setBacklogEntity(BacklogEntity backlogEntity) {
-        this.backlogEntity = backlogEntity;
+    public void setBacklog(String backlog) {
+        this.backlog = backlog;
     }
 
     public StatusEnum getStatus() {

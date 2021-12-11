@@ -4,29 +4,32 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "")//TODO: nombre de la tabla en la BD
+@Table(name = "projecttask", schema="public")
 public class ProjectTaskEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProjectTask;
+    @Column(name = "idprojecttask")
+    private Integer idProjectTask;
     private String name;
     private String summary;
+    @Column(name = "acceptancecriteria")
     private String acceptanceCriteria;
     private String status;
     private int priority;
-    private double horus;
+    @Column(name = "hours")
+    private int horus;
+    @Column(name = "startdate")
     private Date startDate;
+    @Column(name = "enddate")
     private Date endDate;
+    @Column(name = "projectidentifier")
     private String projectIdentifier;
 
-    @ManyToOne
-    @JoinColumn(name = "idBacklog")
-    private BacklogEntity backlogEntity;
+    private String backlog;
 
-    public ProjectTaskEntity(Long idProjectTask, String name, String summary, String acceptanceCriteria,
-                             String status, int priority, double horus, Date startDate, Date endDate,
-                             String projectIdentifier, BacklogEntity backlogEntity) {
+    public ProjectTaskEntity(Integer idProjectTask, String name, String summary, String acceptanceCriteria,
+                             String status, int priority, int horus, Date startDate, Date endDate,
+                             String projectIdentifier, String backlog) {
         this.idProjectTask = idProjectTask;
         this.name = name;
         this.summary = summary;
@@ -37,18 +40,18 @@ public class ProjectTaskEntity {
         this.startDate = startDate;
         this.endDate = endDate;
         this.projectIdentifier = projectIdentifier;
-        this.backlogEntity = backlogEntity;
+        this.backlog = backlog;
     }
 
     public ProjectTaskEntity() {
         super();
     }
 
-    public Long getId() {
+    public Integer getId() {
         return idProjectTask;
     }
 
-    public void setId(Long idProjectTask) {
+    public void setId(Integer idProjectTask) {
         this.idProjectTask = idProjectTask;
     }
 
@@ -116,19 +119,19 @@ public class ProjectTaskEntity {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public BacklogEntity getBacklogEntity() {
-        return backlogEntity;
+    public String getBacklog() {
+        return backlog;
     }
 
-    public void setBacklogEntity(BacklogEntity backlogEntity) {
-        this.backlogEntity = backlogEntity;
+    public void setBacklog(String backlog) {
+        this.backlog = backlog;
     }
 
-    public double getHorus() {
+    public int getHorus() {
         return horus;
     }
 
-    public void setHorus(double horus) {
+    public void setHorus(int horus) {
         this.horus = horus;
     }
 }

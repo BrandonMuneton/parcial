@@ -141,18 +141,15 @@ public class ApiController {
     }
 
     @DeleteMapping("/task/{idtask}/{projectIdentifier}")
-    public ResponseEntity<?> deletedTask(@PathVariable String idtask, @PathVariable String projectIdentifier){
-        ResponseEntity<?> result;
+    public ResponseEntity<?> deletedTask(@PathVariable Integer idtask, @PathVariable String projectIdentifier){
 
         try {
-            result = projectTaskServices.deleteTask(projectIdentifier, idtask);
+            return projectTaskServices.deleteTask(projectIdentifier, idtask);
         }
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
-            result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return result;
     }
 
 }

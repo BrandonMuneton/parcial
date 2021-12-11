@@ -4,40 +4,29 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "")//TODO: nombre de la tabla en la BD
+@Table(name = "backlog", schema="public")
 public class BacklogEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idBacklog;
+    @Column(name = "idbacklog")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idBacklog;
+    @Column(name = "projectidentifier")
     private String projectIdentifier;
+    private String project;
+    @Column(name = "projecttask")
+    private String projectTask;
 
-    @OneToOne
-    @JoinColumn(name = "idProject")
-    private ProjectEntity project;
-
-    @OneToMany
-    @JoinColumn(name = "idProjectTask")
-    private List<ProjectTaskEntity> projectTaskEntityList;
-
-    public BacklogEntity(Long idBacklog, String projectIdentifier, ProjectEntity project,
-                         List<ProjectTaskEntity> projectTaskEntityList) {
+    public BacklogEntity(Integer idBacklog, String projectIdentifier, String project,
+                         String projectTask) {
         this.idBacklog = idBacklog;
         this.projectIdentifier = projectIdentifier;
         this.project = project;
-        this.projectTaskEntityList = projectTaskEntityList;
+        this.projectTask = projectTask;
     }
 
     public BacklogEntity() {
         super();
-    }
-
-    public Long getId() {
-        return idBacklog;
-    }
-
-    public void setId(Long id) {
-        this.idBacklog = idBacklog;
     }
 
     public String getProjectIdentifier() {
@@ -48,19 +37,27 @@ public class BacklogEntity {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public ProjectEntity getProject() {
+    public String getProject() {
         return project;
     }
 
-    public void setProject(ProjectEntity project) {
+    public void setProject(String project) {
         this.project = project;
     }
 
-    public List<ProjectTaskEntity> getProjectTaskEntityList() {
-        return projectTaskEntityList;
+    public String getProjectTask() {
+        return projectTask;
     }
 
-    public void setProjectTaskEntityList(List<ProjectTaskEntity> projectTaskEntityList) {
-        this.projectTaskEntityList = projectTaskEntityList;
+    public void setProjectTask(String projectTask) {
+        this.projectTask = projectTask;
+    }
+
+    public Integer getIdBacklog() {
+        return idBacklog;
+    }
+
+    public void setIdBacklog(Integer idBacklog) {
+        this.idBacklog = idBacklog;
     }
 }

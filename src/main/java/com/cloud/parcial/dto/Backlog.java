@@ -1,11 +1,10 @@
 package com.cloud.parcial.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 public class Backlog {
 
+    private Integer id;
     @NotBlank
     private String projectIdentifier;
     private String project;
@@ -15,7 +14,8 @@ public class Backlog {
         super();
     }
 
-    public Backlog(String projectIdentifier, String project, String projectTask) {
+    public Backlog(Integer id, String projectIdentifier, String project, String projectTask) {
+        this.id = id;
         this.projectIdentifier = projectIdentifier;
         this.project = project;
         this.projectTask = projectTask;
@@ -43,5 +43,13 @@ public class Backlog {
 
     public void setProjectTask(String projectTask) {
         this.projectTask = projectTask;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

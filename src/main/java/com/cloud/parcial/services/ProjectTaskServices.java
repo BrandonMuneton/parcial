@@ -1,6 +1,7 @@
 package com.cloud.parcial.services;
 
 import com.cloud.parcial.dto.ProjectTask;
+import com.cloud.parcial.intities.ProjectTaskEntity;
 import com.cloud.parcial.repositories.ProjectRepository;
 import com.cloud.parcial.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +18,15 @@ public class ProjectTaskServices {
     private ProjectRepository projectRepository;
 
     public ResponseEntity<?> addTask(ProjectTask projectTask){
-        ResponseEntity<?> result;
 
-        //TODO: primer consultar si el projecto ya existe
-/*        boolean respId = projectRepository.existsById();
-        boolean respIdentifier = projectRepository.existsById(); //TODO: crear query
+        boolean respId = projectRepository.existsById(projectTask.getId());
 
-        if(respId || respIdentifier){
-            result = new ResponseEntity<>("El project ya existe", HttpStatus.BAD_REQUEST);
+        if(respId ){
+            return new ResponseEntity<>("El project ya existe", HttpStatus.BAD_REQUEST);
         }else{
-            result = new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
-            //projectRepository.save();
-        }*/
-
-        result = new ResponseEntity<>("Creacion exitosa del task", HttpStatus.CREATED);
-
-        return result;
+            projectTaskRepository.save(convertProjectTaskToProjectTaskEntity(projectTask));
+            return new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
+        }
     }
 
     public ResponseEntity<?> getTaskForProject(String projectIdentifier){
@@ -62,11 +56,29 @@ public class ProjectTaskServices {
         return result;
     }
 
-    public ResponseEntity<?> deleteTask(String projectIdentifier, String idtask){
+    public ResponseEntity<?> deleteTask(String projectIdentifier, Integer idtask){
         ResponseEntity<?> result;
 
-        result = new ResponseEntity<>("Delete exitoso", HttpStatus.CREATED);
+        projectTaskRepository.deleteById(idtask);
+        return new ResponseEntity<>("Delete exitoso", HttpStatus.CREATED);
 
-        return result;
+    }
+
+    private ProjectTaskEntity convertProjectTaskToProjectTaskEntity(ProjectTask projectTask){
+        ProjectTaskEntity projectTaskEntity = new ProjectTaskEntity();
+
+        projectTaskEntity.setId(projectTask.getId());
+        projectTaskEntity.setName(projectTask.getName());
+        projectTaskEntity.setSummary(projectTask.getSummary());
+        projectTaskEntity.setAcceptanceCriteria(projectTask.getAcceptanceCriteria());
+        projectTaskEntity.setStatus(String.valueOf(projectTask.getStatus()));
+        projectTaskEntity.setPriority(projectTask.getPriority());
+        projectTaskEntity.setHorus(projectTask.getHorus());
+        projectTaskEntity.setStartDate(projectTask.getStartDate());
+        projectTaskEntity.setEndDate(projectTask.getEndDate());
+        projectTaskEntity.setProjectIdentifier(projectTask.getProjectIdentifier());
+        projectTaskEntity.setBacklog(projectTask.getBacklog());
+
+        return projectTaskEntity;
     }
 }

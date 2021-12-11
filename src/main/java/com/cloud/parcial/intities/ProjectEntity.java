@@ -4,44 +4,38 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "")//TODO: nombre de la tabla en la BD
+@Table(name = "project", schema="public")
 public class ProjectEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProject;
+    @Column(name = "idproject")
+    private Integer idProject;
+    @Column(name = "projectname")
     private String projectName;
+    @Column(name = "projectidentifier")
     private String projectIdentifier;
     private String description;
+    @Column(name = "startdate")
     private Date startDate;
+    @Column(name = "enddate")
     private Date endDate;
 
-    @OneToOne
-    @JoinColumn(name = "idBacklog")
-    private BacklogEntity backlogEntity;
+    private String backlog;
 
-    public ProjectEntity(Long idProject, String projectName, String projectIdentifier, String description,
-                         Date startDate, Date endDate, BacklogEntity backlogEntity) {
+    public ProjectEntity(Integer idProject, String projectName, String projectIdentifier, String description,
+                         Date startDate, Date endDate, String backlog) {
         this.idProject = idProject;
         this.projectName = projectName;
         this.projectIdentifier = projectIdentifier;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.backlogEntity = backlogEntity;
+        this.backlog = backlog;
     }
 
 
     public ProjectEntity() {
         super();
-    }
-
-    public Long getId() {
-        return idProject;
-    }
-
-    public void setId(Long id) {
-        this.idProject = idProject;
     }
 
     public String getProjectName() {
@@ -84,11 +78,19 @@ public class ProjectEntity {
         this.endDate = endDate;
     }
 
-    public BacklogEntity getBacklogEntity() {
-        return backlogEntity;
+    public String getBacklog() {
+        return backlog;
     }
 
-    public void setBacklogEntity(BacklogEntity backlogEntity) {
-        this.backlogEntity = backlogEntity;
+    public void setBacklog(String backlog) {
+        this.backlog = backlog;
+    }
+
+    public Integer getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Integer idProject) {
+        this.idProject = idProject;
     }
 }

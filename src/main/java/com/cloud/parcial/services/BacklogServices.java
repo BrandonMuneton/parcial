@@ -18,23 +18,25 @@ public class BacklogServices {
     private BacklogRepository backlogRepository;
 
     public ResponseEntity<?> addBacklog(Backlog backlog){
-        ResponseEntity<?> result;
 
-        result = new ResponseEntity<>("Creacion exitosa", HttpStatus.CREATED);
-        //backlogRepository.save();
+        try{
+            backlogRepository.save(convertDtoToEntity(backlog));
+            return new ResponseEntity<>("Creacion exitosa", HttpStatus.CREATED);
 
-        return result;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("Fallo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-//    private BacklogEntity convertDtoToEntity(Backlog backlog){
-//        BacklogEntity backlogEntity = new BacklogEntity();
-//        List<ProjectTaskEntity> projectTaskEntityList;
-//
-//        backlogEntity.setId();
-//        backlogEntity.setProject();
-//        backlogEntity.setProjectIdentifier();
-//        backlogEntity.setProjectTaskEntityList();
-//
-//        return backlogEntity;
-//    }
+    private BacklogEntity convertDtoToEntity(Backlog backlog){
+        BacklogEntity backlogEntity = new BacklogEntity();
+
+        backlogEntity.setIdBacklog(backlog.getId());
+        backlogEntity.setProjectIdentifier(backlog.getProjectIdentifier());
+        backlogEntity.setProjectTask(backlog.getProjectTask());
+        backlogEntity.setProject(backlog.getProject());
+
+        return backlogEntity;
+    }
 }

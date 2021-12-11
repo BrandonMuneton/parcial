@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,31 +18,36 @@ public class ProjectServices {
     private ProjectRepository projectRepository;
 
     public ResponseEntity<?> addProject(Project project){
-        ResponseEntity<?> result;
 
-        //TODO: primer consultar si el projecto ya existe
-/*        boolean respId = projectRepository.existsById();
-        boolean respIdentifier = projectRepository.existsById(); //TODO: crear query
+        boolean respId = projectRepository.existsById(project.getId());
 
-        if(respId || respIdentifier){
-            result = new ResponseEntity<>("El project ya existe", HttpStatus.BAD_REQUEST);
+        if(respId){
+            return new ResponseEntity<>("El project ya existe", HttpStatus.BAD_REQUEST);
         }else{
-            result = new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
-            //projectRepository.save();
-        }*/
-
-        result = new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
-
-        return result;
+            projectRepository.save(convertProjectToProjectEntity(project));
+            return new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
+        }
     }
 
     public ResponseEntity<?> getProject(){
-        ResponseEntity<?> result;
 
-        //projectRepository.findAll();
+        ArrayList<ProjectEntity> projectEntityArrayList;
+        projectEntityArrayList = (ArrayList<ProjectEntity>) projectRepository.findAll();
 
-        result = new ResponseEntity<>("Creacion exitosa del project", HttpStatus.CREATED);
+        return new ResponseEntity<>(projectEntityArrayList, HttpStatus.CREATED);
+    }
 
-        return result;
+    private ProjectEntity convertProjectToProjectEntity(Project project){
+        ProjectEntity projectEntity = new ProjectEntity();
+
+        projectEntity.setIdProject(project.getId());
+        projectEntity.setBacklog(project.getBacklog());
+        projectEntity.setProjectIdentifier(project.getProjectIdentifier());
+        projectEntity.setEndDate(project.getEndDate());
+        projectEntity.setStartDate(project.getStartDate());
+        projectEntity.setProjectName(project.getProjectName());
+        projectEntity.setDescription(project.getDescription());
+
+        return projectEntity;
     }
 }
